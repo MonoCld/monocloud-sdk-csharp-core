@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>MonoCloud.Core</RootNamespace>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>11</LangVersion>
+        <Nullable>enable</Nullable>
+        <SignAssembly>true</SignAssembly>
+        <AssemblyOriginatorKeyFile>MonoCloudNet.snk</AssemblyOriginatorKeyFile>
+        <PackageId>MonoCloud.Core</PackageId>
+        <Version>0.0.1</Version>
+        <Company>MonoCloud</Company>
+        <Product>MonoCloud.Core</Product>
+        <AssemblyVersion>0.0.1</AssemblyVersion>
+        <FileVersion>0.0.1</FileVersion>
+        <Title>MonoCloud .NET SDK Shared</Title>
+        <Authors>MonoCloud</Authors>
+        <Description>MonoCloud is an IdaaS (Identity as a Service) which makes it easy for developers integrate identity and access management to their projects. This package is a shared library for other MonoCloud Sdks.</Description>
+        <Copyright>MonoCloud</Copyright>
+        <PackageProjectUrl>http://www.monocloud.com</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/MonoCld/monocloud-sdk-csharp-core</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>monocloud</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageIcon>MonoCloud.png</PackageIcon>
+        <AssemblyName>MonoCloud.Core</AssemblyName>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
+      <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+      <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+      <PackageReference Include="System.Text.Json" Version="7.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include=".\MonoCloud.png">
+        <Link>MonoCloud.png</Link>
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
+      <None Include=".\MonoCloudNet.snk">
+        <Link>MonoCloudNet.snk</Link>
+      </None>
+    </ItemGroup>
+
+</Project>
