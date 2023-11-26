@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>MonoCloud.SDK.Core</RootNamespace>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net8.0;net7.0;net6.0;netstandard2.0</TargetFrameworks>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <SignAssembly>true</SignAssembly>
+    <PackageId>MonoCloud.SDK.Core</PackageId>
+    <Version>0.0.3</Version>
+    <Company>MonoCloud</Company>
+    <Product>MonoCloud.SDK.Core</Product>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <FileVersion>0.0.1</FileVersion>
+    <Title>MonoCloud SDK .NET Core Library</Title>
+    <Authors>MonoCloud</Authors>
+    <Description>This package is a shared library for MonoCloud Sdks.</Description>
+    <Copyright>MonoCloud</Copyright>
+    <PackageProjectUrl>https://www.monocloud.com</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MonoCld/monocloud-sdk-dotnet-core</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>monocloud</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyName>MonoCloud.SDK.Core</AssemblyName>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>MonoCloud.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="\" />
+    <None Include="../LICENSE" Pack="true" PackagePath="\" />
+    <None Include="../MonoCloud.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+</Project>

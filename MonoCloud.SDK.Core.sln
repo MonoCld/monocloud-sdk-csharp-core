@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoCloud.Core", "src\MonoCloud.Core.csproj", "{D8A67816-3ED2-48C2-90FD-A2CF0884B219}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoCloud.SDK.Core", "src\MonoCloud.SDK.Core.csproj", "{D8A67816-3ED2-48C2-90FD-A2CF0884B219}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

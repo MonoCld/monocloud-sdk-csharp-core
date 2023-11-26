@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Text;
 
-namespace MonoCloud.Core.Helpers;
+namespace MonoCloud.SDK.Core.Helpers;
 
+/// <summary>
+/// The String Extensions
+/// </summary>
 public static class StringExtensions
 {
+  /// <summary>
+  /// Converts the given text to snake case
+  /// </summary>
+  /// <param name="source"></param>
+  /// <returns></returns>
   public static string ToSnakeCase(this string source)
   {
     if (string.IsNullOrEmpty(source))

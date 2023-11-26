@@ -1,2 +1,2 @@
-﻿# MonoCloud C# Core SDK
+﻿# MonoCloud DotNet Core SDK
 

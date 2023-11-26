@@ -7,13 +7,23 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.Json.Serialization;
 
-namespace MonoCloud.Core.Helpers;
+namespace MonoCloud.SDK.Core.Helpers;
 
+/// <summary>
+///
+/// </summary>
+/// <typeparam name="TBase"></typeparam>
 public class JsonObjectContractFactory<TBase>
 {
   private ConcurrentDictionary<Type, ReadOnlyDictionary<string, JsonPropertyContract<TBase>>> Properties { get; } =
     new();
 
+  /// <summary>
+  ///
+  /// </summary>
+  /// <param name="e"></param>
+  /// <param name="t"></param>
+  /// <returns></returns>
   protected virtual Expression CreateSetterCastExpression(Expression e, Type t) => Expression.Convert(e, t);
 
   private ReadOnlyDictionary<string, JsonPropertyContract<TBase>> CreateProperties(Type type)
@@ -34,5 +44,10 @@ public class JsonObjectContractFactory<TBase>
     return new ReadOnlyDictionary<string, JsonPropertyContract<TBase>>(dictionary);
   }
 
+  /// <summary>
+  ///
+  /// </summary>
+  /// <param name="type"></param>
+  /// <returns></returns>
   public IReadOnlyDictionary<string, JsonPropertyContract<TBase>> GetProperties(Type type) => Properties.GetOrAdd(type, t => CreateProperties(t));
 }

@@ -2,10 +2,19 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace MonoCloud.Core.Helpers;
+namespace MonoCloud.SDK.Core.Helpers;
 
+/// <summary>
+///
+/// </summary>
 public static class ExpressionExtensions
 {
+  /// <summary>
+  ///
+  /// </summary>
+  /// <param name="property"></param>
+  /// <typeparam name="T"></typeparam>
+  /// <returns></returns>
   public static Expression<Func<T, object>> GetPropertyFunc<T>(PropertyInfo property)
   {
     var arg = Expression.Parameter(typeof(T), "x");
@@ -14,6 +23,13 @@ public static class ExpressionExtensions
     return Expression.Lambda<Func<T, object>>(cast, arg);
   }
 
+  /// <summary>
+  ///
+  /// </summary>
+  /// <param name="property"></param>
+  /// <param name="setterCastExpression"></param>
+  /// <typeparam name="T"></typeparam>
+  /// <returns></returns>
   public static Expression<Action<T, object>> SetPropertyFunc<T>(PropertyInfo property,
     Func<Expression, Type, Expression> setterCastExpression)
   {

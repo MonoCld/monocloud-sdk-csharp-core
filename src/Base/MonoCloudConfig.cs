@@ -1,18 +1,37 @@
 ﻿using System;
 
-namespace MonoCloud.Core.Base;
+namespace MonoCloud.SDK.Core.Base;
 
+/// <summary>
+/// The MonoCloud Configuration
+/// </summary>
 public class MonoCloudConfig
 {
-
-  public MonoCloudConfig(string tenantId, string apiKey, TimeSpan? timeout = null)
+  /// <summary>
+  /// Initializes the MonoCloud Configuration
+  /// </summary>
+  /// <param name="domain">The MonoCloud Tenant Domain.</param>
+  /// <param name="apiKey">The MonoCloud Tenant Api Key.</param>
+  /// <param name="timeout">An optional timeout after which the request will be aborted.</param>
+  public MonoCloudConfig(string domain, string apiKey, TimeSpan? timeout = null)
   {
-    TenantId = tenantId;
+    Domain = domain;
     ApiKey = apiKey;
-    Timeout = timeout ?? TimeSpan.FromSeconds(5);
+    Timeout = timeout ?? TimeSpan.FromSeconds(10);
   }
 
-  public string TenantId { get; }
+  /// <summary>
+  /// The MonoCloud Tenant Domain
+  /// </summary>
+  public string Domain { get; }
+
+  /// <summary>
+  /// The MonoCloud Tenant Api Key
+  /// </summary>
   public string ApiKey { get; }
+
+  /// <summary>
+  /// An optional timeout after which the request will be aborted
+  /// </summary>
   public TimeSpan Timeout { get; }
 }

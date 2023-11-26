@@ -3,12 +3,24 @@ using System.Linq.Expressions;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace MonoCloud.Core.Helpers;
+namespace MonoCloud.SDK.Core.Helpers;
 
+/// <summary>
+///
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class PatchConverter<T> : JsonConverter<T> where T : class, new()
 {
   private static readonly PatchConverterContractFactory ContractFactory = new();
 
+  /// <summary>
+  ///
+  /// </summary>
+  /// <param name="reader"></param>
+  /// <param name="typeToConvert"></param>
+  /// <param name="options"></param>
+  /// <returns></returns>
+  /// <exception cref="JsonException"></exception>
   public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
   {
     var properties = ContractFactory.GetProperties(typeToConvert);
@@ -69,6 +81,12 @@ public class PatchConverter<T> : JsonConverter<T> where T : class, new()
     throw new JsonException();
   }
 
+  /// <summary>
+  ///
+  /// </summary>
+  /// <param name="writer"></param>
+  /// <param name="value"></param>
+  /// <param name="options"></param>
   public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
   {
     writer.WriteStartObject();
