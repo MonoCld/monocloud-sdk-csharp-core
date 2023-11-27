@@ -57,7 +57,6 @@ public class MonoCloudClientBase
       _httpClient = new HttpClient();
 
       _httpClient.DefaultRequestHeaders.Add("X-API-KEY", configuration.ApiKey);
-      _httpClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
 
       _httpClient.BaseAddress = new Uri($"https://{configuration.Domain}/api");
 
