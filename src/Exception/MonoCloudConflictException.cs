@@ -14,4 +14,12 @@ public class MonoCloudConflictException : MonoCloudRequestException
   public MonoCloudConflictException(ProblemDetails response) : base(response)
   {
   }
+
+  /// <summary>
+  /// Initializes the MonoCloudConflictException Class
+  /// </summary>
+  /// <param name="message">The error message returned from the server.</param>
+  public MonoCloudConflictException(string message) : base(message)
+  {
+  }
 }

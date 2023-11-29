@@ -1,4 +1,4 @@
-﻿using MonoCloud.SDK.Core.Exception;
+using MonoCloud.SDK.Core.Exception;
 using MonoCloud.SDK.Core.Helpers;
 using MonoCloud.SDK.Core.Models;
 using System;
@@ -58,7 +58,9 @@ public class MonoCloudClientBase
 
       _httpClient.DefaultRequestHeaders.Add("X-API-KEY", configuration.ApiKey);
 
-      _httpClient.BaseAddress = new Uri($"https://{configuration.Domain}/api");
+      var baseUrl = configuration.Domain.StartsWith("http") ? $"{configuration.Domain}/api/" : $"https://{configuration.Domain}/api/";
+
+      _httpClient.BaseAddress = new Uri(baseUrl);
 
       _httpClient.Timeout = configuration.Timeout;
     }
@@ -147,5 +149,9 @@ public class MonoCloudClientBase
         ? new MonoCloudException("Invalid body")
         : MonoCloudException.ThrowErr(result);
     }
+
+    var message = await response.Content.ReadAsStringAsync();
+
+    MonoCloudException.ThrowErr((int)response.StatusCode, message is not null && message != string.Empty ? message : response.StatusCode.ToString());
   }
 }

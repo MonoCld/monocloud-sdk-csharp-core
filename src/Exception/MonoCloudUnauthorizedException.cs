@@ -14,4 +14,12 @@ public class MonoCloudUnauthorizedException : MonoCloudRequestException
   public MonoCloudUnauthorizedException(ProblemDetails response) : base(response)
   {
   }
+
+  /// <summary>
+  /// Initializes the MonoCloudUnauthorizedException Class
+  /// </summary>
+  /// <param name="message">The error message returned from the server.</param>
+  public MonoCloudUnauthorizedException(string message) : base(message)
+  {
+  }
 }

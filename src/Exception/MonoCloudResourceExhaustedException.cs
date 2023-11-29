@@ -14,4 +14,12 @@ public class MonoCloudResourceExhaustedException : MonoCloudRequestException
   public MonoCloudResourceExhaustedException(ProblemDetails response) : base(response)
   {
   }
+
+  /// <summary>
+  /// Initializes the MonoCloudResourceExhaustedException Class
+  /// </summary>
+  /// <param name="message">The error message returned from the server.</param>
+  public MonoCloudResourceExhaustedException(string message) : base(message)
+  {
+  }
 }

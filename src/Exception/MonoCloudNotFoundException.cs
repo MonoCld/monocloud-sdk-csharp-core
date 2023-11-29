@@ -14,4 +14,12 @@ public class MonoCloudNotFoundException : MonoCloudRequestException
   public MonoCloudNotFoundException(ProblemDetails response) : base(response)
   {
   }
+
+  /// <summary>
+  /// Initializes the MonoCloudNotFoundException Class
+  /// </summary>
+  /// <param name="message">The error message returned from the server.</param>
+  public MonoCloudNotFoundException(string message) : base(message)
+  {
+  }
 }

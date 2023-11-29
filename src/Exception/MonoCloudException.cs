@@ -1,4 +1,4 @@
-﻿using MonoCloud.SDK.Core.Models;
+using MonoCloud.SDK.Core.Models;
 
 namespace MonoCloud.SDK.Core.Exception;
 
@@ -32,5 +32,25 @@ public class MonoCloudException : System.Exception
       429 => new MonoCloudResourceExhaustedException(problemDetails),
       >= 500 => new MonoCloudServerException(problemDetails),
       _ => throw new System.Exception(string.IsNullOrEmpty(problemDetails.Title) ? "An Unknown Error Occurred" : problemDetails.Title)
+    });
+
+  /// <summary>
+  /// Converts the error returned from the server into an exception
+  /// </summary>
+  /// <param name="statusCode">The response status code.</param>
+  /// <param name="message">The error message returned from the server.</param>
+  /// <returns></returns>
+  public static MonoCloudException ThrowErr(int statusCode, string? message = null) =>
+    throw (statusCode switch
+    {
+      400 => new MonoCloudBadRequestException(message ?? "Bad Request"),
+      401 => new MonoCloudUnauthorizedException(message ?? "Unauthorized"),
+      403 => new MonoCloudForbiddenException(message ?? "Forbidden"),
+      404 => new MonoCloudNotFoundException(message ?? "Not Found"),
+      409 => new MonoCloudConflictException(message ?? "Conflict"),
+      422 => new MonoCloudModelStateException(message ?? "Unprocessible entity"),
+      429 => new MonoCloudResourceExhaustedException(message ?? "Resource Exhausted"),
+      >= 500 => new MonoCloudServerException(message ?? "Server Error"),
+      _ => throw new System.Exception(string.IsNullOrEmpty(message) ? "An Unknown Error Occurred" : message)
     });
 }

@@ -14,4 +14,12 @@ public class MonoCloudBadRequestException : MonoCloudRequestException
   public MonoCloudBadRequestException(ProblemDetails response) : base(response)
   {
   }
+
+  /// <summary>
+  /// Initializes the MonoCloudBadRequestException Class
+  /// </summary>
+  /// <param name="message">The error message returned from the server.</param>
+  public MonoCloudBadRequestException(string message) : base(message)
+  {
+  }
 }

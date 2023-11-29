@@ -14,4 +14,12 @@ public class MonoCloudForbiddenException : MonoCloudRequestException
   public MonoCloudForbiddenException(ProblemDetails response) : base(response)
   {
   }
+
+  /// <summary>
+  /// Initializes the MonoCloudForbiddenException Class
+  /// </summary>
+  /// <param name="message">The error message returned from the server.</param>
+  public MonoCloudForbiddenException(string message) : base(message)
+  {
+  }
 }
