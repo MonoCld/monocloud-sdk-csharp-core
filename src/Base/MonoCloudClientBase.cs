@@ -29,41 +29,43 @@ public class MonoCloudClientBase
   /// Initializes the MonoCloud Client Base Class
   /// </summary>
   /// <param name="configuration">The <see cref="MonoCloudConfig">MonoCloud Configuration</see></param>
-  /// <param name="httpClient">An optional <see cref="HttpClient"/> which will be used to communicate with the MonoCloud Api</param>
   /// <exception cref="MonoCloudException"></exception>
-  protected MonoCloudClientBase(MonoCloudConfig configuration, HttpClient? httpClient = null)
+  protected MonoCloudClientBase(MonoCloudConfig configuration)
   {
-    if (httpClient is not null)
-    {
-      _httpClient = httpClient;
-    }
-    else
-    {
-      if (configuration is null)
-      {
-        throw new MonoCloudException("Configuration is required");
-      }
+     if (configuration is null)
+     {
+       throw new MonoCloudException("Configuration is required");
+     }
 
-      if (string.IsNullOrWhiteSpace(configuration.Domain))
-      {
-        throw new MonoCloudException("Tenant Domain is required");
-      }
+     if (string.IsNullOrWhiteSpace(configuration.Domain))
+     {
+       throw new MonoCloudException("Tenant Domain is required");
+     }
 
-      if (string.IsNullOrWhiteSpace(configuration.ApiKey))
-      {
-        throw new MonoCloudException("API Key is required");
-      }
+     if (string.IsNullOrWhiteSpace(configuration.ApiKey))
+     {
+       throw new MonoCloudException("API Key is required");
+     }
 
-      _httpClient = new HttpClient();
+     _httpClient = new HttpClient();
 
-      _httpClient.DefaultRequestHeaders.Add("X-API-KEY", configuration.ApiKey);
+     _httpClient.DefaultRequestHeaders.Add("X-API-KEY", configuration.ApiKey);
 
-      var baseUrl = configuration.Domain.StartsWith("http") ? $"{configuration.Domain}/api/" : $"https://{configuration.Domain}/api/";
+     var baseUrl = configuration.Domain.StartsWith("http") ? $"{configuration.Domain}/api/" : $"https://{configuration.Domain}/api/";
 
-      _httpClient.BaseAddress = new Uri(baseUrl);
+     _httpClient.BaseAddress = new Uri(baseUrl);
 
-      _httpClient.Timeout = configuration.Timeout;
-    }
+     _httpClient.Timeout = configuration.Timeout;
+  }
+
+  /// <summary>
+  /// Initializes the MonoCloud Client Base Class
+  /// </summary>
+  /// <param name="httpClient">The <see cref="HttpClient"/> which will be used to communicate with the MonoCloud Api</param>
+  /// <exception cref="MonoCloudException"></exception>
+  protected MonoCloudClientBase(HttpClient httpClient)
+  {
+    _httpClient = httpClient ?? throw new MonoCloudException("HttpClient is required");
   }
 
   /// <summary>
