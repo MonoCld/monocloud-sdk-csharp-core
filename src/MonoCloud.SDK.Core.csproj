@@ -7,9 +7,10 @@
     <Nullable>enable</Nullable>
     <SignAssembly>true</SignAssembly>
     <PackageId>MonoCloud.SDK.Core</PackageId>
-    <Version>0.0.6</Version>
+    <Version>0.0.7</Version>
     <Company>MonoCloud</Company>
     <Product>MonoCloud.SDK.Core</Product>
+    <AssemblyName>MonoCloud.SDK.Core</AssemblyName>
     <AssemblyVersion>0.0.1</AssemblyVersion>
     <FileVersion>0.0.1</FileVersion>
     <Title>MonoCloud SDK .NET Core Library</Title>
@@ -21,7 +22,6 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>monocloud</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyName>MonoCloud.SDK.Core</AssemblyName>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <PackageReadmeFile>README.md</PackageReadmeFile>
