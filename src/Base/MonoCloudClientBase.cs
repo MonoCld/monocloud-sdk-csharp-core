@@ -47,15 +47,13 @@ public class MonoCloudClientBase
        throw new MonoCloudException("API Key is required");
      }
 
-     _httpClient = new HttpClient();
+     _httpClient = new HttpClient
+     {
+       BaseAddress = new Uri($"{configuration.Domain}/api/"),
+       Timeout = configuration.Timeout,
+     };
 
      _httpClient.DefaultRequestHeaders.Add("X-API-KEY", configuration.ApiKey);
-
-     var baseUrl = configuration.Domain.StartsWith("http") ? $"{configuration.Domain}/api/" : $"https://{configuration.Domain}/api/";
-
-     _httpClient.BaseAddress = new Uri(baseUrl);
-
-     _httpClient.Timeout = configuration.Timeout;
   }
 
   /// <summary>

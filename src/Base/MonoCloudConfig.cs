@@ -15,7 +15,7 @@ public class MonoCloudConfig
   /// <param name="timeout">An optional timeout after which the request will be aborted.</param>
   public MonoCloudConfig(string domain, string apiKey, TimeSpan? timeout = null)
   {
-    Domain = domain;
+    Domain = SanitizeUrl(domain);
     ApiKey = apiKey;
     Timeout = timeout ?? TimeSpan.FromSeconds(10);
   }
@@ -34,4 +34,21 @@ public class MonoCloudConfig
   /// An optional timeout after which the request will be aborted
   /// </summary>
   public TimeSpan Timeout { get; }
+
+  private string SanitizeUrl(string url)
+  {
+    var u = url;
+
+    if (!url.StartsWith("https://"))
+    {
+      u = "https://" + u;
+    }
+
+    if (url.EndsWith("/"))
+    {
+      u = u.Substring(0, u.Length - 1);
+    }
+
+    return u;
+  }
 }
