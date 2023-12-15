@@ -19,6 +19,7 @@ public class MonoCloudClientBase
   private static readonly JsonSerializerOptions Settings = new()
   {
     Converters = { new JsonStringEnumMemberConverter(new SnakeCaseNamingPolicy(), false) },
+    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     PropertyNameCaseInsensitive = false,
     PropertyNamingPolicy = new SnakeCaseNamingPolicy()
   };
