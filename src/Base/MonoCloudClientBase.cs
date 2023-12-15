@@ -18,7 +18,12 @@ public class MonoCloudClientBase
 {
   private static readonly JsonSerializerOptions Settings = new()
   {
-    Converters = { new JsonStringEnumMemberConverter(new SnakeCaseNamingPolicy(), false) },
+    Converters =
+    {
+      new JsonStringEnumMemberConverter(new SnakeCaseNamingPolicy(), false),
+      new EpochDateTimeNullableConverter(),
+      new EpochDateTimeConverter()
+    },
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     PropertyNameCaseInsensitive = false,
     PropertyNamingPolicy = new SnakeCaseNamingPolicy()
@@ -108,6 +113,52 @@ public class MonoCloudClientBase
     response.Dispose();
 
     return new MonoCloudResponse<TResult>((int)response.StatusCode, response.Headers.Concat(response.Content.Headers).ToDictionary(k => k.Key, v => v.Value), result);
+  }
+
+  /// <summary>
+  /// The Process Request Method which processes the request provided.
+  /// </summary>
+  /// <param name="request">The <see cref="HttpRequestMessage"/> to be processed.</param>
+  /// <param name="cancellationToken">The cancellation token.</param>
+  /// <typeparam name="TResult">The return type of response.</typeparam>
+  /// <typeparam name="TPage">The pagination data.</typeparam>
+  /// <returns>A <see cref="MonoCloudResponse"/> of type <typeparamref name="TResult"/></returns>
+  /// <exception cref="MonoCloudException"></exception>
+  protected async Task<MonoCloudResponse<TResult, TPage>> ProcessRequestAsync<TResult, TPage>(HttpRequestMessage request, CancellationToken cancellationToken = default) where TPage : PageModel, new()
+  {
+    var response = await _httpClient.SendAsync(request, cancellationToken);
+
+    request.Dispose();
+
+    if (!response.IsSuccessStatusCode)
+    {
+      await HandleErrorResponse(response, cancellationToken);
+      response.Dispose();
+
+      throw new MonoCloudException($"Something went wrong, Received Status Code: {response.StatusCode}, {response.ReasonPhrase}");
+    }
+
+    using var responseStream = await response.Content.ReadAsStreamAsync();
+
+    var result = await JsonSerializer.DeserializeAsync<TResult>(responseStream, Settings, cancellationToken);
+
+    if (result is null)
+    {
+      throw new MonoCloudException("Invalid response body");
+    }
+
+    response.Dispose();
+
+    TPage pageModel = new();
+    var header = response.Headers.FirstOrDefault(x => x.Key.Equals("x-pagination", StringComparison.OrdinalIgnoreCase));
+    var pageHeader = header.Value?.FirstOrDefault();
+
+    if (pageHeader is not null)
+    {
+      pageModel = JsonSerializer.Deserialize<TPage>(pageHeader, Settings)!;
+    }
+
+    return new MonoCloudResponse<TResult, TPage>((int)response.StatusCode, response.Headers.Concat(response.Content.Headers).ToDictionary(k => k.Key, v => v.Value), result, pageModel);
   }
 
   /// <summary>
