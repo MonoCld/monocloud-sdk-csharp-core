@@ -34,11 +34,6 @@ public class ProblemDetails
   public string Instance { get; set; } = string.Empty;
 
   /// <summary>
-  /// A collection of errors
-  /// </summary>
-  public IDictionary<string, string[]>? Errors { get; set; }
-
-  /// <summary>
   /// Additional data about the error
   /// </summary>
   [JsonExtensionData]

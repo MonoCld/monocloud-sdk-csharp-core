@@ -2,6 +2,7 @@ using MonoCloud.SDK.Core.Exception;
 using MonoCloud.SDK.Core.Helpers;
 using MonoCloud.SDK.Core.Models;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
@@ -191,11 +192,24 @@ public class MonoCloudClientBase
   {
     if (response.Content.Headers.ContentType?.MediaType == "application/problem+json")
     {
-      using var responseStream = await response.Content.ReadAsStreamAsync();
+      var responseBytes = await response.Content.ReadAsByteArrayAsync();
 
-      var result = await JsonSerializer.DeserializeAsync<ProblemDetails>(responseStream, Settings, cancellationToken);
+      var result = await JsonSerializer.DeserializeAsync<ProblemDetails>(new MemoryStream(responseBytes), Settings, cancellationToken);
 
-      response.Dispose();
+      if (result is null)
+      {
+        throw new MonoCloudException("Invalid body");
+      }
+
+      if (result.ExtensionData.TryGetValue("errors", out var errorObj) && errorObj is JsonElement errors)
+      {
+        result = errors.ValueKind switch
+        {
+          JsonValueKind.Array => await JsonSerializer.DeserializeAsync<ValidationProblemDetails>(new MemoryStream(responseBytes), Settings, cancellationToken),
+          JsonValueKind.Object => await JsonSerializer.DeserializeAsync<KeyValidationProblemDetails>(new MemoryStream(responseBytes), Settings, cancellationToken),
+          _ => result
+        };
+      }
 
       throw result is null
         ? new MonoCloudException("Invalid body")
