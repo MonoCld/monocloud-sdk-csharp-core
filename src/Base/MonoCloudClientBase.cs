@@ -201,15 +201,12 @@ public class MonoCloudClientBase
         throw new MonoCloudException("Invalid body");
       }
 
-      if (result.ExtensionData.TryGetValue("errors", out var errorObj) && errorObj is JsonElement errors)
+      result = result.Type switch
       {
-        result = errors.ValueKind switch
-        {
-          JsonValueKind.Array => await JsonSerializer.DeserializeAsync<ValidationProblemDetails>(new MemoryStream(responseBytes), Settings, cancellationToken),
-          JsonValueKind.Object => await JsonSerializer.DeserializeAsync<KeyValidationProblemDetails>(new MemoryStream(responseBytes), Settings, cancellationToken),
-          _ => result
-        };
-      }
+        ValidationExceptionTypes.IdentityValidationError => await JsonSerializer.DeserializeAsync<ErrorCodeValidationProblemDetails>(new MemoryStream(responseBytes), Settings, cancellationToken),
+        ValidationExceptionTypes.ValidationError => await JsonSerializer.DeserializeAsync<KeyValidationProblemDetails>(new MemoryStream(responseBytes), Settings, cancellationToken),
+        _ => result
+      };
 
       throw result is null
         ? new MonoCloudException("Invalid body")

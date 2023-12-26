@@ -1,6 +1,6 @@
 namespace MonoCloud.SDK.Core.Models;
 
-public class ValidationError
+public class ErrorCodeValidationError
 {
   /// <summary>
   /// The error code.

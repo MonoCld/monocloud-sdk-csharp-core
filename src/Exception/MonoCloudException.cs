@@ -28,7 +28,8 @@ public class MonoCloudException : System.Exception
       403 => new MonoCloudForbiddenException(problemDetails),
       404 => new MonoCloudNotFoundException(problemDetails),
       409 => new MonoCloudConflictException(problemDetails),
-      422 => new MonoCloudModelStateException(problemDetails),
+      422 when problemDetails is ErrorCodeValidationProblemDetails v => new MonoCloudErrorCodeValidationException(v),
+      422 when problemDetails is KeyValidationProblemDetails v => new MonoCloudKeyValidationException(v),
       429 => new MonoCloudResourceExhaustedException(problemDetails),
       >= 500 => new MonoCloudServerException(problemDetails),
       _ => throw new System.Exception(string.IsNullOrEmpty(problemDetails.Title) ? "An Unknown Error Occurred" : problemDetails.Title)
