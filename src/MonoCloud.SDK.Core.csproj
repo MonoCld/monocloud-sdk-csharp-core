@@ -7,7 +7,7 @@
     <Nullable>enable</Nullable>
     <SignAssembly>true</SignAssembly>
     <PackageId>MonoCloud.SDK.Core</PackageId>
-    <Version>0.1.5</Version>
+    <Version>0.1.6</Version>
     <Company>MonoCloud</Company>
     <Product>MonoCloud.SDK.Core</Product>
     <AssemblyName>MonoCloud.SDK.Core</AssemblyName>
@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
