@@ -11,4 +11,9 @@ public class ErrorCodeValidationError
   /// Brief explanation of the error.
   /// </summary>
   public string Description { get; set; } = string.Empty;
+
+  /// <summary>
+  /// The field the error belongs to.
+  /// </summary>
+  public string? Field { get; set; }
 }
