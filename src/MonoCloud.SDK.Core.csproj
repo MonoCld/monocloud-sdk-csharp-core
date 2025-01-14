@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <RootNamespace>MonoCloud.SDK.Core</RootNamespace>
-    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net8.0;net7.0;net6.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net9.0;net8.0;net7.0;net6.0;netstandard2.0</TargetFrameworks>
     <LangVersion>10.0</LangVersion>
     <Nullable>enable</Nullable>
     <SignAssembly>true</SignAssembly>
     <PackageId>MonoCloud.SDK.Core</PackageId>
-    <Version>0.1.8</Version>
+    <Version>0.1.9</Version>
     <Company>MonoCloud</Company>
     <Product>MonoCloud.SDK.Core</Product>
     <AssemblyName>MonoCloud.SDK.Core</AssemblyName>
